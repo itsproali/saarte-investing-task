@@ -1,0 +1,18 @@
+.duration_input {
+  all:unset;
+  width: 90px;
+  border: 2px solid var(--gray-light);
+  border-radius: 4px;
+  padding: 8px 15px;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  vertical-align: center;
+}
+
+.duration_input::placeholder {
+  vertical-align: center;
+  font-weight: 400;
+  font-size: 16px;
+}
