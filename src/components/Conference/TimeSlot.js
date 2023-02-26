@@ -10,7 +10,7 @@ export default function TimeSlot({scheduleIndex, duration}) {
   let slots = [moment(start).format()];
   let last = start;
 
-  while (last <= end) {
+  while (last < end) {
     const next = moment(last).add(duration, "minute").format();
     slots.push(next);
     last = next;

@@ -29,20 +29,22 @@ export default function Conference() {
       >
         {/* Top Time Section */}
         <TimeAndDuration setDuration={setDuration} />
-
         {/* Calendar Section */}
-        {duration && 
-        <Stack
-          direction={{ xs: "column", lg: "row" }}
-          alignItems="center"
-          justifyContent="space-evenly"
-          spacing={8}
-          sx={{ mt: 8 }}
-        >
-          <Calendar setScheduleIndex={setScheduleIndex} />
+        {duration ? (
+          <Stack
+            direction={{ xs: "column", lg: "row" }}
+            alignItems="center"
+            justifyContent="space-evenly"
+            spacing={8}
+            sx={{ mt: 8 }}
+          >
+            <Calendar setScheduleIndex={setScheduleIndex} />
 
-          <TimeSlot scheduleIndex={scheduleIndex} duration={duration} />
-        </Stack>}
+            <TimeSlot scheduleIndex={scheduleIndex} duration={duration} />
+          </Stack>
+        ) : (
+          <> </>
+        )}
       </Box>
     </>
   );
