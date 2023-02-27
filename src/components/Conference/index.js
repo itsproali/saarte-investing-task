@@ -67,29 +67,28 @@ export default function Conference() {
               )}
             </Stack>
 
-            {selectedSlot && (
-              <Box sx={{ mt: 8, mb: 6 }}>
-                <textarea
-                  name="message"
-                  id="message"
-                  cols="30"
-                  rows="10"
-                  placeholder="Additional Message"
-                  onBlur={(e) => setMessage(e.target.value)}
-                  className={message_field}
-                />
-                <Stack direction="row" justifyContent="flex-end">
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{ borderRadius: 10, px: 4, py: 1, mt: 2 }}
-                    onClick={handleSubmit}
-                  >
-                    Book Now
-                  </Button>
-                </Stack>
-              </Box>
-            )}
+            <Box sx={{ mt: 8, mb: 6 }}>
+              <textarea
+                name="message"
+                id="message"
+                cols="30"
+                rows="10"
+                placeholder="Additional Message"
+                onBlur={(e) => setMessage(e.target.value)}
+                className={message_field}
+              />
+              <Stack direction="row" justifyContent="flex-end">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{ borderRadius: 10, px: 4, py: 1, mt: 2 }}
+                  onClick={handleSubmit}
+                  disabled={selectedSlot ? false : true}
+                >
+                  Book Now
+                </Button>
+              </Stack>
+            </Box>
           </>
         ) : (
           <> </>
