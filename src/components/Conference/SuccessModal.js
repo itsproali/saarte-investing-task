@@ -17,11 +17,11 @@ export default function SuccessModal({ success, handleClose, slot }) {
     textAlign: "center",
   };
 
-  const date = moment(slot).format("DD MMM YYYY");
-  const time = moment(slot).format("LT");
+  const date = moment(slot?.slot).format("DD MMM YYYY");
+  const time = moment(slot?.slot).format("LT");
   return (
     <>
-      <Modal open={success} onClose={handleClose}>
+      <Modal open={Boolean(success)} onClose={handleClose}>
         <Box sx={style}>
           <Image src={tickIcon} alt="success" width={70} height={70} />
           <Typography variant="h4" component="h4" sx={{ mt: 1 }}>

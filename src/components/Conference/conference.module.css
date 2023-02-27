@@ -1,5 +1,5 @@
 .duration_input {
-  all:unset;
+  all: unset;
   width: 90px;
   border: 2px solid var(--gray-light);
   border-radius: 4px;
@@ -27,6 +27,26 @@
   padding: 10px 15px;
 }
 
-.message_field:focus, .duration_input:focus {
+.message_field:focus,
+.duration_input:focus {
   border: 2px solid var(--gray-dark);
+}
+
+.circle_top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.circle_center {
+  position: absolute;
+  top: 90%;
+  right: 0;
+  z-index: -1;
+}
+.circle_bottom {
+  position: absolute;
+  bottom: -50;
+  left: 0;
+  z-index: -1;
 }

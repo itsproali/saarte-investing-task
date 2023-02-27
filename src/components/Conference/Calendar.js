@@ -6,7 +6,7 @@ import moment from "moment";
 import { useState } from "react";
 import schedules from "@/assets/data/schedules.json";
 
-export default function Calendar({setScheduleIndex, setSelectedSlot}) {
+export default function Calendar({setSchedule, setSelectedSlot}) {
   const theme = useTheme();
   // Calendar
   const [date, setDate] = useState(moment());
@@ -19,11 +19,11 @@ export default function Calendar({setScheduleIndex, setSelectedSlot}) {
   const handleDate = (newDate) => {
     setDate(newDate);
     const selectedDate = moment(newDate).format("L");
-    const index = schedules?.schedule?.findIndex(
+    const schedule = schedules?.schedule?.find(
       (item) => moment(item?.start).format("L") === selectedDate
     );
-    setScheduleIndex(index);
-    setSelectedSlot(null);
+    setSchedule(schedule);
+    setSelectedSlot({});
   };
   return (
     <Box>

@@ -3,19 +3,23 @@ import moment from "moment";
 import schedules from "@/assets/data/schedules.json";
 import { useState } from "react";
 
-export default function TimeSlot({scheduleIndex, duration, selectedSlot, setSelectedSlot}) {
+export default function TimeSlot({
+  schedule,
+  duration,
+  selectedSlot,
+  setSelectedSlot,
+}) {
   const theme = useTheme();
-  
-  
+
   // Get Schedule Information
-  const start = schedules.schedule[scheduleIndex].start;
-  const end = schedules.schedule[scheduleIndex].end;
-  let slots = [moment(start).format()];
+  const start = schedule.start;
+  const end = schedule.end;
+  let slots = [{slot: moment(start).format(), isBooked: false}];
   let last = start;
 
   while (last < end) {
     const next = moment(last).add(duration, "minute").format();
-    slots.push(next);
+    slots.push({ slot: next, isBooked: false });
     last = next;
   }
   return (
@@ -33,15 +37,21 @@ export default function TimeSlot({scheduleIndex, duration, selectedSlot, setSele
         justifyContent="flex-start"
         sx={{ flexWrap: "wrap", gap: 1.5, mt: 2 }}
       >
-        {slots.map((slot, i) => (
+        {slots.map((item, i) => (
           <Button
             key={i}
             variant="outlined"
-            color={slot === selectedSlot ? "primary" : "black"}
-            sx={{ borderRadius: 10, backgroundColor: `${slot === selectedSlot && "primary.light"}` }}
-            onClick={() => setSelectedSlot(slot)}
+            color={item?.slot === selectedSlot?.slot ? "primary" : "black"}
+            sx={{
+              borderRadius: 10,
+              backgroundColor: `${
+                item?.slot === selectedSlot?.slot && "primary.light"
+              }`,
+            }}
+            onClick={() => setSelectedSlot(item)}
+            disabled={item?.isBooked}
           >
-            {moment(slot).format("LT")}
+            {moment(item?.slot).format("LT")}
           </Button>
         ))}
       </Stack>

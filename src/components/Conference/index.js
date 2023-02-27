@@ -5,16 +5,20 @@ import TimeAndDuration from "./TimeAndDuration";
 import TimeSlot from "./TimeSlot";
 import schedules from "@/assets/data/schedules.json";
 import moment from "moment";
-import { message_field } from "./conference.module.css";
+import { message_field, circle_top, circle_center, circle_bottom } from "./conference.module.css";
 import SuccessModal from "./SuccessModal";
+import circle_top_img from "@/assets/images/circle_top.png";
+import circle_center_img from "@/assets/images/circle_center.png";
+import circle_bottom_img from "@/assets/images/circle_bottom.png";
+import Image from "next/image";
 
 export default function Conference() {
   const [duration, setDuration] = useState(0);
-  const defaultIndex = schedules?.schedule?.findIndex(
+  const defaultSchedule = schedules?.schedule?.find(
     (item) => moment(item?.start).format("L") === moment().format("L")
   );
-  const [scheduleIndex, setScheduleIndex] = useState(defaultIndex);
-  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [schedule, setSchedule] = useState(defaultSchedule);
+  const [selectedSlot, setSelectedSlot] = useState({});
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -51,15 +55,15 @@ export default function Conference() {
               sx={{ mt: 8 }}
             >
               <Calendar
-                setScheduleIndex={setScheduleIndex}
+                setSchedule={setSchedule}
                 setSelectedSlot={setSelectedSlot}
               />
 
-              {scheduleIndex === -1 ? (
+              {!schedule ? (
                 <>There is no slot in this date</>
               ) : (
                 <TimeSlot
-                  scheduleIndex={scheduleIndex}
+                  schedule={schedule}
                   duration={duration}
                   selectedSlot={selectedSlot}
                   setSelectedSlot={setSelectedSlot}
@@ -83,7 +87,7 @@ export default function Conference() {
                   color="secondary"
                   sx={{ borderRadius: 10, px: 4, py: 1, mt: 2 }}
                   onClick={handleSubmit}
-                  disabled={selectedSlot ? false : true}
+                  disabled={selectedSlot?.slot ? false : true}
                 >
                   Book Now
                 </Button>
@@ -100,6 +104,11 @@ export default function Conference() {
         handleClose={() => setSuccess(false)}
         slot={selectedSlot}
       />
+
+      {/* Bg Circles */}
+      <Image src={circle_top_img} alt="circle_top" width={200} height={200} className={circle_top} />
+      <Image src={circle_center_img} alt="circle_center" width={300} height={300} className={circle_center} />
+      <Image src={circle_bottom_img} alt="circle_bottom" width={200} height={200} className={circle_bottom} />
     </>
   );
 }
