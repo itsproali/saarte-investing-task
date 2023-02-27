@@ -103,18 +103,6 @@ export default function Navbar() {
           </Stack>
           {/* Responsive Menu */}
           <Box sx={{ flexGrow: 0, display: { md: "none" } }}>
-            {/* Language Select */}
-            <FormControl variant="standard" size="small">
-              <Select
-                value={language}
-                label="Language"
-                onChange={handleLanguage}
-              >
-                <MenuItem value="English">English</MenuItem>
-                <MenuItem value="Hindi">Hindi</MenuItem>
-                <MenuItem value="Bengali">Bengali</MenuItem>
-              </Select>
-            </FormControl>
             <IconButton
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
@@ -155,6 +143,18 @@ export default function Navbar() {
                   </Link>
                 </MenuItem>
               ))}
+              {/* Language Select */}
+              <FormControl fullWidth variant="standard" size="small" sx={{px: 2}}>
+                <Select
+                  value={language}
+                  label="Language"
+                  onChange={handleLanguage}
+                >
+                  <MenuItem value="English">English</MenuItem>
+                  <MenuItem value="Hindi">Hindi</MenuItem>
+                  <MenuItem value="Bengali">Bengali</MenuItem>
+                </Select>
+              </FormControl>
             </Menu>
           </Box>
         </Stack>
