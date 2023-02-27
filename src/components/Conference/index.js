@@ -55,12 +55,16 @@ export default function Conference() {
                 setSelectedSlot={setSelectedSlot}
               />
 
-              <TimeSlot
-                scheduleIndex={scheduleIndex}
-                duration={duration}
-                selectedSlot={selectedSlot}
-                setSelectedSlot={setSelectedSlot}
-              />
+              {scheduleIndex === -1 ? (
+                <>There is no slot in this date</>
+              ) : (
+                <TimeSlot
+                  scheduleIndex={scheduleIndex}
+                  duration={duration}
+                  selectedSlot={selectedSlot}
+                  setSelectedSlot={setSelectedSlot}
+                />
+              )}
             </Stack>
 
             {selectedSlot && (

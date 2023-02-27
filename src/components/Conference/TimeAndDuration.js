@@ -46,6 +46,7 @@ export default function TimeAndDuration({ setDuration }) {
             id="duration"
             className={duration_input}
             placeholder="Duration"
+            onWheel={(e) => e.target.blur()}
           />
         </form>
       </Stack>

@@ -45,6 +45,7 @@ export default function Calendar({setScheduleIndex, setSelectedSlot}) {
             onChange={handleDate}
             minDate={minDate}
             maxDate={maxDate}
+            disablePast
           />
         </LocalizationProvider>
       </Box>
