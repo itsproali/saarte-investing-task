@@ -16,3 +16,17 @@
   font-weight: 400;
   font-size: 16px;
 }
+
+.message_field {
+  all: unset;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border: 2px solid var(--gray-light);
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.message_field:focus, .duration_input:focus {
+  border: 2px solid var(--gray-dark);
+}

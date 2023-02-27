@@ -11,7 +11,7 @@ export default function TimeAndDuration({ setDuration }) {
   useEffect(() => {
     setInterval(() => {
       setTime(moment().format("LT"));
-    }, 5000);
+    }, 1000);
   }, []);
 
   // Handle Set Duration

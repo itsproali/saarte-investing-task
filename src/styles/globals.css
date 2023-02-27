@@ -21,6 +21,7 @@ body {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 /* Chrome, Safari, Edge, Opera */

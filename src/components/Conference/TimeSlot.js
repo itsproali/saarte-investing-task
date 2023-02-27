@@ -1,10 +1,13 @@
 import { Box, Typography, Stack, useTheme, Button } from "@mui/material";
 import moment from "moment";
 import schedules from "@/assets/data/schedules.json";
+import { useState } from "react";
 
-export default function TimeSlot({scheduleIndex, duration}) {
+export default function TimeSlot({scheduleIndex, duration, selectedSlot, setSelectedSlot}) {
   const theme = useTheme();
   
+  
+  // Get Schedule Information
   const start = schedules.schedule[scheduleIndex].start;
   const end = schedules.schedule[scheduleIndex].end;
   let slots = [moment(start).format()];
@@ -34,8 +37,9 @@ export default function TimeSlot({scheduleIndex, duration}) {
           <Button
             key={i}
             variant="outlined"
-            color="black"
-            sx={{ borderRadius: 10 }}
+            color={slot === selectedSlot ? "primary" : "black"}
+            sx={{ borderRadius: 10, backgroundColor: `${slot === selectedSlot && "primary.light"}` }}
+            onClick={() => setSelectedSlot(slot)}
           >
             {moment(slot).format("LT")}
           </Button>
