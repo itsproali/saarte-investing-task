@@ -1,20 +1,19 @@
-import Link from "next/link";
 import {
   Box,
+  Button,
   Container,
-  FormControl,
   IconButton,
   Menu,
   MenuItem,
-  Select,
   Stack,
   Typography,
   useTheme,
 } from "@mui/material";
-import { useState } from "react";
-import { IoMdHome } from "react-icons/io";
-import { HiOutlineMenu } from "react-icons/hi";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { HiOutlineMenu } from "react-icons/hi";
+import { IoMdArrowDropdown, IoMdHome } from "react-icons/io";
 
 const pages = [
   { label: "Home", path: "/" },
@@ -22,19 +21,27 @@ const pages = [
   { label: "Conference", path: "/conference" },
   { label: "Blog", path: "/blog" },
 ];
+const languages = ["EN", "HI", "BN", "AR"];
+
 export default function Navbar() {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(null);
+  const [isLanguageOpen, setIsLanguageOpen] = useState(null);
   const open = Boolean(isOpen);
+  const languageOpen = Boolean(isLanguageOpen);
+
   const { pathname } = useRouter();
 
   const handleOpen = (e) => setIsOpen(e.currentTarget);
   const handleClose = () => setIsOpen(null);
+  const handleLanguageOpen = (e) => setIsLanguageOpen(e.currentTarget);
+  const handleLanguageClose = () => setIsLanguageOpen(null);
 
-  const [language, setLanguage] = useState("English");
+  const [language, setLanguage] = useState("EN");
 
   const handleLanguage = (e) => {
-    setLanguage(e.target.value);
+    setLanguage(e.target.innerText);
+    setIsLanguageOpen(null);
   };
   return (
     <>
@@ -85,21 +92,32 @@ export default function Navbar() {
             ))}
 
             {/* Language Select */}
-            <FormControl
-              variant="standard"
-              size="small"
-              sx={{ display: { xs: "none", md: "block" } }}
-            >
-              <Select
-                value={language}
-                label="Language"
-                onChange={handleLanguage}
+            <Box sx={{ display: { xs: "none", md: "block" } }}>
+              <Button
+                variant="text"
+                color="black"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                }}
+                onClick={handleLanguageOpen}
               >
-                <MenuItem value="English">English</MenuItem>
-                <MenuItem value="Hindi">Hindi</MenuItem>
-                <MenuItem value="Bengali">Bengali</MenuItem>
-              </Select>
-            </FormControl>
+                <span>{language}</span>
+                <IoMdArrowDropdown />
+              </Button>
+              <Menu
+                anchorEl={isLanguageOpen}
+                open={languageOpen}
+                onClose={handleLanguageClose}
+              >
+                {languages.map((item, i) => (
+                  <MenuItem key={i} onClick={handleLanguage}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
           </Stack>
           {/* Responsive Menu */}
           <Box sx={{ flexGrow: 0, display: { md: "none" } }}>
@@ -144,17 +162,35 @@ export default function Navbar() {
                 </MenuItem>
               ))}
               {/* Language Select */}
-              <FormControl fullWidth variant="standard" size="small" sx={{px: 2}}>
-                <Select
-                  value={language}
-                  label="Language"
-                  onChange={handleLanguage}
+              <>
+                <Button
+                  variant="text"
+                  color="black"
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    px: 2,
+                    gap: 1,
+                    width: "100%",
+                  }}
+                  onClick={handleLanguageOpen}
                 >
-                  <MenuItem value="English">English</MenuItem>
-                  <MenuItem value="Hindi">Hindi</MenuItem>
-                  <MenuItem value="Bengali">Bengali</MenuItem>
-                </Select>
-              </FormControl>
+                  <span>{language}</span>
+                  <IoMdArrowDropdown />
+                </Button>
+                <Menu
+                  anchorEl={isLanguageOpen}
+                  open={languageOpen}
+                  onClose={handleLanguageClose}
+                >
+                  {languages.map((item, i) => (
+                    <MenuItem key={i} onClick={handleLanguage}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
             </Menu>
           </Box>
         </Stack>

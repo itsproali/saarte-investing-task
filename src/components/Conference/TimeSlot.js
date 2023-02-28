@@ -1,7 +1,6 @@
-import { Box, Typography, Stack, useTheme, Button } from "@mui/material";
+import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
 import moment from "moment";
-import schedules from "@/assets/data/schedules.json";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function TimeSlot({
   slots,
@@ -17,8 +16,6 @@ export default function TimeSlot({
   const start = moment(schedule.start).subtract(duration, "minute").format();
   const end = moment(schedule.end).subtract(duration, "minute").format();
   let last = start;
-
-  // let slots = [{ slot: moment(start).format(), isBooked: false }];
 
   useEffect(() => {
     const setTimeSlots = () => {
