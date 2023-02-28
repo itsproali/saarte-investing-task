@@ -3,7 +3,7 @@ import { duration_input } from "./conference.module.css";
 import { useEffect, useState } from "react";
 import moment from "moment";
 
-export default function TimeAndDuration({ setDuration }) {
+export default function TimeAndDuration({ setDuration, setSlots }) {
   const theme = useTheme();
   const [time, setTime] = useState("00:00 AM");
 
@@ -19,6 +19,7 @@ export default function TimeAndDuration({ setDuration }) {
     e.preventDefault();
     const duration = e.target.duration.value;
     setDuration(duration);
+    setSlots([]);
   };
   return (
     <Box sx={{ textAlign: "center" }}>

@@ -3,10 +3,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
 import moment from "moment";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import schedules from "@/assets/data/schedules.json";
 
-export default function Calendar({setSchedule, setSelectedSlot}) {
+export default function Calendar({ setSchedule, setSlots, setSelectedSlot }) {
   const theme = useTheme();
   // Calendar
   const [date, setDate] = useState(moment());
@@ -16,7 +16,7 @@ export default function Calendar({setSchedule, setSelectedSlot}) {
   const maxDate = moment(schedules?.schedule[length - 1]?.start);
 
   // Handle Select Date
-  const handleDate = (newDate) => {
+  const handleDate = useCallback((newDate) => {
     setDate(newDate);
     const selectedDate = moment(newDate).format("L");
     const schedule = schedules?.schedule?.find(
@@ -24,7 +24,8 @@ export default function Calendar({setSchedule, setSelectedSlot}) {
     );
     setSchedule(schedule);
     setSelectedSlot({});
-  };
+    setSlots([])
+  }, [setSchedule, setSelectedSlot, setSlots]);
   return (
     <Box>
       <Typography

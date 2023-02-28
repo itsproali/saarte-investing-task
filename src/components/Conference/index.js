@@ -5,7 +5,12 @@ import TimeAndDuration from "./TimeAndDuration";
 import TimeSlot from "./TimeSlot";
 import schedules from "@/assets/data/schedules.json";
 import moment from "moment";
-import { message_field, circle_top, circle_center, circle_bottom } from "./conference.module.css";
+import {
+  message_field,
+  circle_top,
+  circle_center,
+  circle_bottom,
+} from "./conference.module.css";
 import SuccessModal from "./SuccessModal";
 import circle_top_img from "@/assets/images/circle_top.png";
 import circle_center_img from "@/assets/images/circle_center.png";
@@ -21,6 +26,7 @@ export default function Conference() {
   const [selectedSlot, setSelectedSlot] = useState({});
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
+  const [slots, setSlots] = useState([]);
 
   const theme = useTheme();
 
@@ -28,6 +34,12 @@ export default function Conference() {
   const handleSubmit = () => {
     console.log(message);
     setSuccess(true);
+    setSlots((slots) =>
+      slots.map((slot) =>
+        slot.slot === selectedSlot.slot ? { ...slot, isBooked: true } : slot
+      )
+    );
+    setSelectedSlot({});
   };
   return (
     <>
@@ -43,7 +55,7 @@ export default function Conference() {
         }}
       >
         {/* Top Time Section */}
-        <TimeAndDuration setDuration={setDuration} />
+        <TimeAndDuration setDuration={setDuration} setSlots={setSlots} />
         {/* Calendar Section */}
         {duration ? (
           <>
@@ -56,6 +68,7 @@ export default function Conference() {
             >
               <Calendar
                 setSchedule={setSchedule}
+                setSlots={setSlots}
                 setSelectedSlot={setSelectedSlot}
               />
 
@@ -63,6 +76,8 @@ export default function Conference() {
                 <>There is no slot in this date</>
               ) : (
                 <TimeSlot
+                  slots={slots}
+                  setSlots={setSlots}
                   schedule={schedule}
                   duration={duration}
                   selectedSlot={selectedSlot}
@@ -106,9 +121,27 @@ export default function Conference() {
       />
 
       {/* Bg Circles */}
-      <Image src={circle_top_img} alt="circle_top" width={200} height={200} className={circle_top} />
-      <Image src={circle_center_img} alt="circle_center" width={300} height={300} className={circle_center} />
-      <Image src={circle_bottom_img} alt="circle_bottom" width={200} height={200} className={circle_bottom} />
+      <Image
+        src={circle_top_img}
+        alt="circle_top"
+        width={200}
+        height={200}
+        className={circle_top}
+      />
+      <Image
+        src={circle_center_img}
+        alt="circle_center"
+        width={300}
+        height={300}
+        className={circle_center}
+      />
+      <Image
+        src={circle_bottom_img}
+        alt="circle_bottom"
+        width={200}
+        height={200}
+        className={circle_bottom}
+      />
     </>
   );
 }
